@@ -62,10 +62,10 @@ RM = "D:\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = D:\informatika\matrix
+CMAKE_SOURCE_DIR = D:\informatika\matrixi\matrix
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = D:\informatika\matrix\cmake-build-debug
+CMAKE_BINARY_DIR = D:\informatika\matrixi\matrix\cmake-build-debug
 
 # Include any dependencies generated for this target.
 include CMakeFiles/matrix_submatrix.dir/depend.make
@@ -78,29 +78,29 @@ include CMakeFiles/matrix_submatrix.dir/flags.make
 
 CMakeFiles/matrix_submatrix.dir/main.cpp.obj: CMakeFiles/matrix_submatrix.dir/flags.make
 CMakeFiles/matrix_submatrix.dir/main.cpp.obj: ../main.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\informatika\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/matrix_submatrix.dir/main.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\matrix_submatrix.dir\main.cpp.obj -c D:\informatika\matrix\main.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_1) "Building CXX object CMakeFiles/matrix_submatrix.dir/main.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\matrix_submatrix.dir\main.cpp.obj -c D:\informatika\matrixi\matrix\main.cpp
 
 CMakeFiles/matrix_submatrix.dir/main.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/matrix_submatrix.dir/main.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\informatika\matrix\main.cpp > CMakeFiles\matrix_submatrix.dir\main.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\informatika\matrixi\matrix\main.cpp > CMakeFiles\matrix_submatrix.dir\main.cpp.i
 
 CMakeFiles/matrix_submatrix.dir/main.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/matrix_submatrix.dir/main.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\informatika\matrix\main.cpp -o CMakeFiles\matrix_submatrix.dir\main.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\informatika\matrixi\matrix\main.cpp -o CMakeFiles\matrix_submatrix.dir\main.cpp.s
 
 CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj: CMakeFiles/matrix_submatrix.dir/flags.make
 CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj: ../submatrix.cpp
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\informatika\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj"
-	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\matrix_submatrix.dir\submatrix.cpp.obj -c D:\informatika\matrix\submatrix.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj"
+	C:\MinGW\bin\g++.exe  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles\matrix_submatrix.dir\submatrix.cpp.obj -c D:\informatika\matrixi\matrix\submatrix.cpp
 
 CMakeFiles/matrix_submatrix.dir/submatrix.cpp.i: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/matrix_submatrix.dir/submatrix.cpp.i"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\informatika\matrix\submatrix.cpp > CMakeFiles\matrix_submatrix.dir\submatrix.cpp.i
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E D:\informatika\matrixi\matrix\submatrix.cpp > CMakeFiles\matrix_submatrix.dir\submatrix.cpp.i
 
 CMakeFiles/matrix_submatrix.dir/submatrix.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/matrix_submatrix.dir/submatrix.cpp.s"
-	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\informatika\matrix\submatrix.cpp -o CMakeFiles\matrix_submatrix.dir\submatrix.cpp.s
+	C:\MinGW\bin\g++.exe $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S D:\informatika\matrixi\matrix\submatrix.cpp -o CMakeFiles\matrix_submatrix.dir\submatrix.cpp.s
 
 # Object files for target matrix_submatrix
 matrix_submatrix_OBJECTS = \
@@ -116,7 +116,7 @@ matrix_submatrix.exe: CMakeFiles/matrix_submatrix.dir/build.make
 matrix_submatrix.exe: CMakeFiles/matrix_submatrix.dir/linklibs.rsp
 matrix_submatrix.exe: CMakeFiles/matrix_submatrix.dir/objects1.rsp
 matrix_submatrix.exe: CMakeFiles/matrix_submatrix.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\informatika\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable matrix_submatrix.exe"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Linking CXX executable matrix_submatrix.exe"
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles\matrix_submatrix.dir\link.txt --verbose=$(VERBOSE)
 
 # Rule to build all files generated by this target.
@@ -129,6 +129,6 @@ CMakeFiles/matrix_submatrix.dir/clean:
 .PHONY : CMakeFiles/matrix_submatrix.dir/clean
 
 CMakeFiles/matrix_submatrix.dir/depend:
-	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\informatika\matrix D:\informatika\matrix D:\informatika\matrix\cmake-build-debug D:\informatika\matrix\cmake-build-debug D:\informatika\matrix\cmake-build-debug\CMakeFiles\matrix_submatrix.dir\DependInfo.cmake --color=$(COLOR)
+	$(CMAKE_COMMAND) -E cmake_depends "MinGW Makefiles" D:\informatika\matrixi\matrix D:\informatika\matrixi\matrix D:\informatika\matrixi\matrix\cmake-build-debug D:\informatika\matrixi\matrix\cmake-build-debug D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles\matrix_submatrix.dir\DependInfo.cmake --color=$(COLOR)
 .PHONY : CMakeFiles/matrix_submatrix.dir/depend
 

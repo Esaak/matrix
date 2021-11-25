@@ -6,13 +6,7 @@
 
 #IncludeRegexTransform: 
 
-D:/informatika/matrix/main.cpp
-iostream
--
-submatrix.cpp
-D:/informatika/matrix/submatrix.cpp
-
-D:/informatika/matrix/submatrix.cpp
+D:/informatika/matrixi/matrix/main.cpp
 iostream
 -
 
