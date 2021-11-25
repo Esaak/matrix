@@ -1,0 +1,18 @@
+#IncludeRegexLine: ^[ 	]*[#%][ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+D:/informatika/matrix/main.cpp
+iostream
+-
+submatrix.cpp
+D:/informatika/matrix/submatrix.cpp
+
+D:/informatika/matrix/submatrix.cpp
+iostream
+-
+
