@@ -255,6 +255,33 @@ submatrix.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/submatrix.cpp.s
 .PHONY : submatrix.cpp.s
 
+transponironanie.obj: transponironanie.cpp.obj
+
+.PHONY : transponironanie.obj
+
+# target to build an object file
+transponironanie.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/transponironanie.cpp.obj
+.PHONY : transponironanie.cpp.obj
+
+transponironanie.i: transponironanie.cpp.i
+
+.PHONY : transponironanie.i
+
+# target to preprocess a source file
+transponironanie.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/transponironanie.cpp.i
+.PHONY : transponironanie.cpp.i
+
+transponironanie.s: transponironanie.cpp.s
+
+.PHONY : transponironanie.s
+
+# target to generate assembly for a file
+transponironanie.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/transponironanie.cpp.s
+.PHONY : transponironanie.cpp.s
+
 # Help Target
 help:
 	@echo The following are some of the valid targets for this Makefile:
@@ -275,6 +302,9 @@ help:
 	@echo ... submatrix.obj
 	@echo ... submatrix.i
 	@echo ... submatrix.s
+	@echo ... transponironanie.obj
+	@echo ... transponironanie.i
+	@echo ... transponironanie.s
 .PHONY : help
 
 

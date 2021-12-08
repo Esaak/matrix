@@ -29,10 +29,10 @@ unsigned int Gauss(double **matrix, unsigned int weight, unsigned int  height) {
                     }
                     new_matrix[p][q] /= tmp_rows[i];//делим p строку на аpi;
                 }
-                double new_p1i = new_matrix[p + 1][i];
                 for (unsigned int qw = p+1; qw < height; qw++) {
+                    double  new_p1i = new_matrix[qw][i];
                     for (unsigned int q = i; q < weight; q++) {
-                        new_matrix[qw][q] -= new_matrix[p][q] * new_p1i;
+                        new_matrix[qw][q] -= new_matrix[p][q] * (new_p1i/new_matrix[p][i]);
                     }
                 }
                 p++;

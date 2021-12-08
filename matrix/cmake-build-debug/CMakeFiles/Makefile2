@@ -124,12 +124,12 @@ CMakeFiles/matrix.dir/clean:
 CMakeFiles/matrix_submatrix.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=5,6,7,8 "Built target matrix_submatrix"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=5,6,7,8,9 "Built target matrix_submatrix"
 .PHONY : CMakeFiles/matrix_submatrix.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/matrix_submatrix.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 4
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 5
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/matrix_submatrix.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/matrix_submatrix.dir/rule

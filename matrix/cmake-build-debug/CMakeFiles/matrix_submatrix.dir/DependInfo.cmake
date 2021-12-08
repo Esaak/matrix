@@ -7,6 +7,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "D:/informatika/matrixi/matrix/main.cpp" "D:/informatika/matrixi/matrix/cmake-build-debug/CMakeFiles/matrix_submatrix.dir/main.cpp.obj"
   "D:/informatika/matrixi/matrix/musor.cpp" "D:/informatika/matrixi/matrix/cmake-build-debug/CMakeFiles/matrix_submatrix.dir/musor.cpp.obj"
   "D:/informatika/matrixi/matrix/submatrix.cpp" "D:/informatika/matrixi/matrix/cmake-build-debug/CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj"
+  "D:/informatika/matrixi/matrix/transponironanie.cpp" "D:/informatika/matrixi/matrix/cmake-build-debug/CMakeFiles/matrix_submatrix.dir/transponironanie.cpp.obj"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

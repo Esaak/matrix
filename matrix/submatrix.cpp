@@ -11,15 +11,13 @@ public:
         }
     }
 
-    Submatrix(double *mass, unsigned int height, unsigned int weight) : Submatrix(height, weight) {
-        /*matrix = new double* [height];
-        for(unsigned int i=0; i<height; i++){
-            matrix[i]= new double[weight];*/
+    /*Submatrix(double *mass, unsigned int height, unsigned int weight) : Submatrix(height, weight) {
         for (int i = 0; i < height; i++) {
-            //for(unsigned int j=0; j<weight; j++){
-            memcpy(matrix[i], &mass[i], weight * sizeof(double));
+            for(int j=0; j<weight; j++){
+                matrix[i][j]=*(mass+j+i*j);
+            }
         }
-    }
+    }*/
 
     ~Submatrix() {
         for (unsigned int i = 0; i < height; i++) {
@@ -28,145 +26,121 @@ public:
         delete[] matrix;
     }
 
-    bool input(double *mass, unsigned int user_size_height, unsigned int user_size_weight) {
-        if (user_size_weight != weight && user_size_height != height) {
-            cout << "Size error\n";
-            return false;
-        }
-        for (unsigned int i = 0; i < height; i++) {
-            for (unsigned int j = 0; j < weight; j++) {
-                matrix[i][j] = *(mass + j + i * j);
+    bool input(Submatrix& new_matrix,const double *mass ) {
+        for (unsigned int i = 0; i < new_matrix.height; i++) {
+            for (unsigned int j = 0; j < new_matrix.weight; j++) {
+                new_matrix.matrix[i][j] = *(mass + j + i * j);
             }
         }
         return true;
     }
 
-    bool multiplication(double p) {
+    bool multiplication(Submatrix& submatrix,double p) {
         if (p == 1) {
             return true;
         }
-        for (unsigned int i = 0; i < height; i++) {
-            for (unsigned int j = 0; j < weight; j++) {
-                matrix[i][j] *= p;
+        for (unsigned int i = 0; i < submatrix.height; i++) {
+            for (unsigned int j = 0; j < submatrix.weight; j++) {
+                submatrix.matrix[i][j] *= p;
             }
         }
         return true;
     }
 
-    bool multiplication(const double *m_mass, unsigned int user_size_height, unsigned int user_size_weight) {
-        if (weight != user_size_height) {
-            return false;
+    Submatrix* multiplication(const Submatrix &matrix2, const Submatrix &matrix1) {
+        if (matrix1.weight != matrix2.height) {
+            return nullptr;
         }
-        double **new_matrix = new double *[height]{};
-        for (unsigned int i = 0; i < height; i++) {
-            new_matrix[i] = new double[user_size_weight]{};
-        }
-        for (unsigned int i = 0; i < height; i++) {
-            for (unsigned int j = 0; j < user_size_weight; j++) {
-                for (unsigned int k = 0; k < weight; k++) {
-                    new_matrix[i][j] += matrix[i][k] * (*(m_mass + j + j * k));
+        Submatrix *new_matrix = new Submatrix(matrix1.height, matrix2.weight);
+        for (unsigned int i = 0; i < matrix1.height; i++) {
+            for (unsigned int j = 0; j < matrix2.weight; j++) {
+                for (unsigned int k = 0; k < matrix2.weight; k++) {
+                    new_matrix->matrix[i][j] += matrix1.matrix[i][k] *matrix2.matrix[k][j] ;
                 }
             }
         }
-        cleaner(const & matrix, height);
-        matrix= new_matrix;
-        return true;
+        return new_matrix;
     }
-
-    bool addition(double p) {
-        if (p == 0) {
-            return true;
+    Submatrix* addition(const Submatrix& matrix1,const Submatrix& matrix2 ) {
+        if(matrix2.weight != matrix1.weight || matrix1.height!= matrix2.height){
+            return nullptr;
         }
-        for (int i = 0; i < height; i++) {
-            for (int j = 0; j < weight; j++) {
-                matrix[i][j] += p;
+        Submatrix* new_matrix = new Submatrix(matrix2.height, matrix2.weight);
+        for(unsigned int i=0; i<matrix2.height; i++){
+            for(unsigned int j=0; j<matrix1.weight; j++){
+                new_matrix->matrix[i][j]=matrix1.matrix[i][j]+matrix2.matrix[i][j];
             }
         }
-        return true;
+        return new_matrix;
     }
-
-    bool addition(const double *m_mass, unsigned int user_size_height, unsigned int user_size_weight) {
-        if (user_size_weight != weight && user_size_height != weight) {
-            return false;
+    Submatrix* substraction(const Submatrix& matrix1,const Submatrix& matrix2 ) {
+        if(matrix2.weight != matrix1.weight || matrix1.height!= matrix2.height){
+            return nullptr;
         }
-        for(unsigned int i=0; i<height; i++){
-            for(unsigned int j=0; j<weight; j++){
-                matrix[i][j]=matrix[i][j]+(*(m_mass +j+j*i));
+        Submatrix* new_matrix = new Submatrix(matrix2.height, matrix2.weight);
+        for(unsigned int i=0; i<matrix1.height; i++){
+            for(unsigned int j=0; j<matrix1.weight; j++){
+                new_matrix->matrix[i][j]=matrix1.matrix[i][j]-matrix2.matrix[i][j];
             }
         }
-        return true;
+        return new_matrix;
     }
 
-    bool substraction(double p) {
-        addition(-p);
-        return true;
-    }
-    bool substraction(const double *m_mass, unsigned int user_size_height, unsigned int user_size_weight) {
-        if (user_size_weight != weight && user_size_height != weight) {
-            return false;
-        }
-        for(unsigned int i=0; i<height; i++){
-            for(unsigned int j=0; j<weight; j++){
-                matrix[i][j]=matrix[i][j]-(*(m_mass +j+j*i));
+    void Gauss( Submatrix& submatrix) {
+        double **new_matrix = new double *[submatrix.height];
+        for (unsigned int i = 0; i < submatrix.height; i++) {
+            new_matrix[i] = new double[submatrix.weight];
+            for (unsigned int j = 0; j < submatrix.weight; j++) {
+                new_matrix[i][j] = submatrix.matrix[i][j];
             }
         }
-        return true;
-    }
-    bool division(double p) {
-        if (p == 0) {
-            return false;
+        unsigned int i;//weight
+        unsigned int j;//height
+        unsigned int p = 0;//счетчик куда перемещать строку
+        for (i = 0; i < submatrix.weight; i++) {
+            for (j = 0; j < submatrix.height; j++) {
+                if(i==submatrix.weight-1 && j == submatrix.height - 1){
+                    return;
+                }
+                if (new_matrix[j][i] != 0) {
+                    double tmp_rows[weight];
+                    for (unsigned int t = i; t < submatrix.weight; t++) {
+                        tmp_rows[t] = new_matrix[j][t];
+                        new_matrix[j][t] = new_matrix[p][t];
+                        new_matrix[p][t] = tmp_rows[t];
+                    }//переставил строки местами
+                    for (unsigned int qw = p+1; qw < height; qw++) {
+                        double new_p1i = new_matrix[qw][i];
+                        for (unsigned int q = i; q < weight; q++) {
+                            new_matrix[qw][q] -= new_matrix[p][q] *(new_p1i/new_matrix[p][i]);
+                        }
+                    }
+                    p++;
+                    submatrix.rank = p;
+                }
+            }
         }
-        multiplication(1 / p);
-        return true;
+        if(submatrix.weight == submatrix.height){
+            submatrix.descr =1;
+            for(unsigned int d=0; d<submatrix.weight; d++){
+                submatrix.descr *=new_matrix[d][d];
+            }
+        }
     }
+
+
 private:
     unsigned int weight = 0;
     unsigned int height = 0;
     double **matrix;
+    unsigned int rank;
+    double descr=1;
 
-    void cleaner(const double **matrix2clean, unsigned int matrix2clean_height){
-        for (unsigned int i = 0; i < height; i++) {
-            delete[] matrix2clean[i];
+    void cleaner(Submatrix  &submatrix){
+        for (unsigned int i = 0; i < submatrix.height; i++) {
+            delete[] submatrix.matrix[i];
         }
-        delete[] matrix2clean;
+        delete[] submatrix.matrix;
     }
-
-    void Gauss(double **matrix){
-        Submatrix new_matrix (*matrix,height, weight);
-        while (true){
-            unsigned int i=0;
-            unsigned int j=0;
-            for(i=0; i<weight; i++){
-                for(j=0; j<height; j++){
-                    if(new_matrix[j][i]!=0) {
-                        break;
-                    }
-                }
-                if(new_matrix[j][i]!=0) {
-                    break;
-                }
-            }
-            double tmp_rows[weight];
-            memcpy(&tmp_rows,new_matrix[j],weight*sizeof(double));//перемещение j строки на 0 место
-            memcpy(new_atrix[j], new_matrix[0], weight*sizeof(double));//перемещение j строки на 0 место
-            memcpy(new_matrix[0], &tmp_rows,  weight*sizeof(double));//перемещение j строки на 0 место
-            for(unsigned int q=0; q<weight; q++){
-                if(new_matrix[0][q]==0){
-                    continue;
-                }
-                new_matrix[0][q] =new_matrix[0][q]/new_matrix[0][i];//делим 0 строку на а0j;
-            }
-            for(unsigned int q=1; q<height; q++){
-                if(new_matrix[i][q] ==0){
-                    continue;
-                }
-                for(unsigned int t=1; t<weight; t++){
-                    new_matrix[0][t] *=new_matrix[i][q];
-                }
-            }
-            }
-        }
-    }
-
 
 };

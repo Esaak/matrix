@@ -175,6 +175,9 @@
 		<Unit filename="D:/informatika/matrixi/matrix/submatrix.cpp">
 			<Option target="matrix_submatrix"/>
 		</Unit>
+		<Unit filename="D:/informatika/matrixi/matrix/transponironanie.cpp">
+			<Option target="matrix_submatrix"/>
+		</Unit>
 		<Unit filename="D:/informatika/matrixi/matrix/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>
 		</Unit>
