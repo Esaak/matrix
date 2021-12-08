@@ -74,6 +74,7 @@ CMAKE_BINARY_DIR = D:\informatika\matrixi\matrix\cmake-build-debug
 # The main recursive "all" target.
 all: CMakeFiles/matrix.dir/all
 all: CMakeFiles/matrix_submatrix.dir/all
+all: CMakeFiles/matrix_musor.dir/all
 
 .PHONY : all
 
@@ -85,6 +86,7 @@ preinstall:
 # The main recursive "clean" target.
 clean: CMakeFiles/matrix.dir/clean
 clean: CMakeFiles/matrix_submatrix.dir/clean
+clean: CMakeFiles/matrix_musor.dir/clean
 
 .PHONY : clean
 
@@ -122,12 +124,12 @@ CMakeFiles/matrix.dir/clean:
 CMakeFiles/matrix_submatrix.dir/all:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/depend
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=3,4,5 "Built target matrix_submatrix"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=5,6,7,8 "Built target matrix_submatrix"
 .PHONY : CMakeFiles/matrix_submatrix.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/matrix_submatrix.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 3
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 4
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/matrix_submatrix.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 0
 .PHONY : CMakeFiles/matrix_submatrix.dir/rule
@@ -141,6 +143,33 @@ matrix_submatrix: CMakeFiles/matrix_submatrix.dir/rule
 CMakeFiles/matrix_submatrix.dir/clean:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/clean
 .PHONY : CMakeFiles/matrix_submatrix.dir/clean
+
+#=============================================================================
+# Target rules for target CMakeFiles/matrix_musor.dir
+
+# All Build rule for target.
+CMakeFiles/matrix_musor.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles --progress-num=3,4 "Built target matrix_musor"
+.PHONY : CMakeFiles/matrix_musor.dir/all
+
+# Build rule for subdir invocation for target.
+CMakeFiles/matrix_musor.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 2
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/matrix_musor.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start D:\informatika\matrixi\matrix\cmake-build-debug\CMakeFiles 0
+.PHONY : CMakeFiles/matrix_musor.dir/rule
+
+# Convenience name for target.
+matrix_musor: CMakeFiles/matrix_musor.dir/rule
+
+.PHONY : matrix_musor
+
+# clean rule for target.
+CMakeFiles/matrix_musor.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/clean
+.PHONY : CMakeFiles/matrix_musor.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.

@@ -1,5 +1,6 @@
 file(REMOVE_RECURSE
   "CMakeFiles/matrix_submatrix.dir/main.cpp.obj"
+  "CMakeFiles/matrix_submatrix.dir/musor.cpp.obj"
   "CMakeFiles/matrix_submatrix.dir/submatrix.cpp.obj"
   "libmatrix_submatrix.dll.a"
   "matrix_submatrix.exe"

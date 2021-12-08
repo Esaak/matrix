@@ -68,7 +68,7 @@ public:
                 }
             }
         }
-        cleaner(matrix, height);
+        cleaner(const & matrix, height);
         matrix= new_matrix;
         return true;
     }
@@ -130,12 +130,40 @@ private:
         }
         delete[] matrix2clean;
     }
+
     void Gauss(double **matrix){
-        unsigned int i=0;
-        unsigned int j=0;
+        Submatrix new_matrix (*matrix,height, weight);
         while (true){
-            while(true){
-                new_matrix[i][j]=
+            unsigned int i=0;
+            unsigned int j=0;
+            for(i=0; i<weight; i++){
+                for(j=0; j<height; j++){
+                    if(new_matrix[j][i]!=0) {
+                        break;
+                    }
+                }
+                if(new_matrix[j][i]!=0) {
+                    break;
+                }
+            }
+            double tmp_rows[weight];
+            memcpy(&tmp_rows,new_matrix[j],weight*sizeof(double));//перемещение j строки на 0 место
+            memcpy(new_atrix[j], new_matrix[0], weight*sizeof(double));//перемещение j строки на 0 место
+            memcpy(new_matrix[0], &tmp_rows,  weight*sizeof(double));//перемещение j строки на 0 место
+            for(unsigned int q=0; q<weight; q++){
+                if(new_matrix[0][q]==0){
+                    continue;
+                }
+                new_matrix[0][q] =new_matrix[0][q]/new_matrix[0][i];//делим 0 строку на а0j;
+            }
+            for(unsigned int q=1; q<height; q++){
+                if(new_matrix[i][q] ==0){
+                    continue;
+                }
+                for(unsigned int t=1; t<weight; t++){
+                    new_matrix[0][t] *=new_matrix[i][q];
+                }
+            }
             }
         }
     }

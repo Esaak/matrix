@@ -155,6 +155,19 @@ matrix_submatrix/fast:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/build
 .PHONY : matrix_submatrix/fast
 
+#=============================================================================
+# Target rules for targets named matrix_musor
+
+# Build rule for target.
+matrix_musor: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 matrix_musor
+.PHONY : matrix_musor
+
+# fast build rule for target.
+matrix_musor/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/build
+.PHONY : matrix_musor/fast
+
 main.obj: main.cpp.obj
 
 .PHONY : main.obj
@@ -184,6 +197,36 @@ main.cpp.s:
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix.dir\build.make CMakeFiles/matrix.dir/main.cpp.s
 	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/main.cpp.s
 .PHONY : main.cpp.s
+
+musor.obj: musor.cpp.obj
+
+.PHONY : musor.obj
+
+# target to build an object file
+musor.cpp.obj:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/musor.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/musor.cpp.obj
+.PHONY : musor.cpp.obj
+
+musor.i: musor.cpp.i
+
+.PHONY : musor.i
+
+# target to preprocess a source file
+musor.cpp.i:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/musor.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/musor.cpp.i
+.PHONY : musor.cpp.i
+
+musor.s: musor.cpp.s
+
+.PHONY : musor.s
+
+# target to generate assembly for a file
+musor.cpp.s:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_submatrix.dir\build.make CMakeFiles/matrix_submatrix.dir/musor.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\matrix_musor.dir\build.make CMakeFiles/matrix_musor.dir/musor.cpp.s
+.PHONY : musor.cpp.s
 
 submatrix.obj: submatrix.cpp.obj
 
@@ -221,10 +264,14 @@ help:
 	@echo ... edit_cache
 	@echo ... rebuild_cache
 	@echo ... matrix
+	@echo ... matrix_musor
 	@echo ... matrix_submatrix
 	@echo ... main.obj
 	@echo ... main.i
 	@echo ... main.s
+	@echo ... musor.obj
+	@echo ... musor.i
+	@echo ... musor.s
 	@echo ... submatrix.obj
 	@echo ... submatrix.i
 	@echo ... submatrix.s
