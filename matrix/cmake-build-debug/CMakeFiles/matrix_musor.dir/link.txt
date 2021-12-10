@@ -1,0 +1,3 @@
+"D:\CLion 2020.2\bin\cmake\win\bin\cmake.exe" -E rm -f CMakeFiles\matrix_musor.dir/objects.a
+C:\MinGW\bin\ar.exe cr CMakeFiles\matrix_musor.dir/objects.a @CMakeFiles\matrix_musor.dir\objects1.rsp
+C:\MinGW\bin\g++.exe -g   -Wl,--whole-archive CMakeFiles\matrix_musor.dir/objects.a -Wl,--no-whole-archive  -o matrix_musor.exe -Wl,--out-implib,libmatrix_musor.dll.a -Wl,--major-image-version,0,--minor-image-version,0 @CMakeFiles\matrix_musor.dir\linklibs.rsp
