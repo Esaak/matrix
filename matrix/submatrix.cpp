@@ -49,7 +49,6 @@ public:
         }
         delete[] matrix;
     }
-
     void input(Submatrix& new_matrix,const double *mass ) {
         for (unsigned int i = 0; i < new_matrix.height; i++) {
             for (unsigned int j = 0; j < new_matrix.weight; j++) {
@@ -57,7 +56,6 @@ public:
             }
         }
     }
-
     Submatrix multiplication(Submatrix& submatrix,double p) {
         if (p == 1) {
             return submatrix;
@@ -78,10 +76,13 @@ public:
         for (unsigned int i = 0; i < matrix1.height; i++) {
             for (unsigned int j = 0; j < matrix2.weight; j++) {
                 for (unsigned int k = 0; k < matrix1.weight; k++) {
-                    new_matrix->matrix[i][j] += matrix1.matrix[i][k] *matrix2.matrix[k][j] ;
+                    new_matrix->matrix[i][j] += matrix1.matrix[i][k] *matrix2.matrix[k][j];
                 }
+                cout<<new_matrix->matrix[i][j]<<" ";
             }
+            cout<<endl;
         }
+        new_matrix->det = matrix1.det*matrix2.det;
         return *new_matrix;
     }
     Submatrix addition(const Submatrix& matrix1,const Submatrix& matrix2 ) {
@@ -105,6 +106,7 @@ public:
             for(unsigned int j=0; j<matrix1.weight; j++){
                 new_matrix->matrix[i][j]=matrix1.matrix[i][j]-matrix2.matrix[i][j];
             }
+
         }
         return *new_matrix;
     }
@@ -120,6 +122,7 @@ public:
         unsigned int i;//weight
         unsigned int j;//height
         unsigned int p = 0;//счетчик куда перемещать строку
+        int sign=0;
         for (i = 0; i < submatrix.weight; i++) {
             if(i==submatrix.weight-1 && j == submatrix.height - 1){
                 break;
@@ -131,11 +134,14 @@ public:
                 if (new_matrix[j][i] != 0) {
                     //cout<<j<<" "<<i<<endl;
                     double tmp_rows[submatrix.weight];
-                    for (unsigned int t = i; t < submatrix.weight; t++) {
-                        tmp_rows[t] = new_matrix[j][t];
-                        new_matrix[j][t] = new_matrix[p][t];
-                        new_matrix[p][t] = tmp_rows[t];
-                    }//переставил строки местами
+                    if(j!=p) {
+                        for (unsigned int t = i; t < submatrix.weight; t++) {
+                            tmp_rows[t] = new_matrix[j][t];
+                            new_matrix[j][t] = new_matrix[p][t];
+                            new_matrix[p][t] = tmp_rows[t];
+                        }//переставил строки местами
+                        sign++;
+                    }
                     for (unsigned int qw = p+1; qw < submatrix.height; qw++) {
                         double new_p1i = new_matrix[qw][i];
                         for (unsigned int q = i; q < submatrix.weight; q++) {
@@ -143,12 +149,24 @@ public:
                         }
                     }
                     p++;
-                    submatrix.rank = p;
+                }
+            }
+        }
+        for(unsigned int i1 =0; i1<submatrix.height; i1++){
+            for(unsigned int j1=0; j1<submatrix.weight; j1++){
+                if(new_matrix[i1][j1]!=0){
+                    submatrix.rank++;
+                    break;
                 }
             }
         }
         if(submatrix.weight == submatrix.height){
-            submatrix.det =1;
+            if(sign%2==0){
+                submatrix.det =1;
+            }
+            else{
+                submatrix.det =-1;
+            }
             for(unsigned int d=0; d<submatrix.weight; d++){
                 submatrix.det *=new_matrix[d][d];
             }
@@ -192,8 +210,6 @@ public:
         else{
             Submatrix* inmatrix =new Submatrix(submatrix.height, submatrix.height);
             Submatrix tmp_matrix(inmatrix->height-1, inmatrix->weight-1);
-            Submatrix tmp_matrix1(inmatrix->height, inmatrix->weight);
-            tmp_matrix1 = transponse(submatrix);
             for(unsigned int i=0; i<inmatrix->height; i++){
                 for(unsigned int j=0; j<inmatrix->weight; j++){
                     unsigned int i_tmp=0;
@@ -208,13 +224,13 @@ public:
                                     j_tmp++;
                                 }
                             }
-                            tmp_matrix.matrix[i1][j1] = tmp_matrix1.matrix[i_tmp][j_tmp];
+                            tmp_matrix.matrix[i1][j1] = submatrix.matrix[i_tmp][j_tmp];
                             j_tmp++;
                         }
                         i_tmp++;
                     }
                     Gauss(tmp_matrix);
-                    if((i+j)%2==0){
+                    if((i+j+2)%2==0){
                         inmatrix->matrix[i][j]=tmp_matrix.det;
                         inmatrix->matrix[i][j]=inmatrix->matrix[i][j]/submatrix.det;
                     }
@@ -224,6 +240,7 @@ public:
                     }
                 }
             }
+            *inmatrix =transponse(*inmatrix);
             return *inmatrix;
         }
         return submatrix;
@@ -246,9 +263,9 @@ public:
     }
 
 private:
-    double **matrix= nullptr;
-    unsigned int weight = 0;
     unsigned int height = 0;
+    unsigned int weight = 0;
+    double **matrix= nullptr;
     unsigned int rank=0;
     double det=0;
     void cleaner(){
