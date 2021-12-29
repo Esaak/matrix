@@ -5,17 +5,13 @@ public:
     Submatrix(unsigned int height, unsigned int weight) : height(height), weight(weight) {
         if(weight ==0 || height==0){
             return;
-        }
-        matrix = new double *[height];
-        for (unsigned int i = 0; i < height; i++) {
-            matrix[i] = new double[weight];
-
-        }
+        } //написать assert
+        matrix = new double [height*weight];
     }
     Submatrix(const Submatrix& submatrix): Submatrix(submatrix.height, submatrix.weight){
         for (unsigned int i = 0; i < height; i++) {
             for (unsigned int j = 0; j < weight; j++) {
-                matrix[i][j] =submatrix.matrix[i][j];
+                matrix[j+i*weight] =submatrix.matrix[j+i*weight];
             }
         }
     }
@@ -23,19 +19,14 @@ public:
         if (this == &submatrix) {
             return *this;
         } else {
-            if (matrix != nullptr) {
-                for (unsigned int i = 0; i < height; i++) {
-                    delete[] matrix[i];
-                }
-                delete[] matrix;
-            }
+            delete[] matrix;
+            matrix = nullptr;
             height = submatrix.height;
             weight = submatrix.weight;
-            matrix = new double *[height];
+            matrix = new double [height*weight];
             for (unsigned int i = 0; i < height; i++) {
-                matrix[i] = new double[weight];
                 for (unsigned int j = 0; j < weight; j++) {
-                    matrix[i][j] = submatrix.matrix[i][j];
+                    matrix[j+i*weight] = submatrix.matrix[j+i*weight];
                 }
             }
             det = submatrix.det;
@@ -44,79 +35,85 @@ public:
             }
         }
     ~Submatrix() {
-        for (unsigned int i = 0; i < height; i++) {
-            delete[] matrix[i];
-        }
         delete[] matrix;
     }
-    void input(Submatrix& new_matrix,const double *mass ) {
-        for (unsigned int i = 0; i < new_matrix.height; i++) {
-            for (unsigned int j = 0; j < new_matrix.weight; j++) {
-                new_matrix.matrix[i][j] = *(mass + j + i * new_matrix.weight);
+    void input(const double *mass ) {
+        for (unsigned int i = 0; i < height; i++) {
+            for (unsigned int j = 0; j < weight; j++) {
+                matrix[j+i*weight] = mass[j + i * weight];//подумать
             }
         }
     }
-    Submatrix multiplication(Submatrix& submatrix,double p) {
+    Submatrix& operator* (double p) {
         if (p == 1) {
-            return submatrix;
+            return *this;
         }
-        for (unsigned int i = 0; i < submatrix.height; i++) {
-            for (unsigned int j = 0; j < submatrix.weight; j++) {
-                submatrix.matrix[i][j] *= p;
+        for (unsigned int i = 0; i < height; i++) {
+            for (unsigned int j = 0; j < weight; j++) {
+                matrix[j+i*weight] *= p;
             }
         }
-        return submatrix;
+        return *this;
     }
 
-    Submatrix multiplication(const Submatrix &matrix1, const Submatrix &matrix2) {
-        if (matrix1.weight != matrix2.height) {
-            return matrix1;
+    Submatrix& operator* (const Submatrix &submatrix) {
+        if (weight != submatrix.height) {
+            return *this;
         }
-        Submatrix *new_matrix = new Submatrix(matrix1.height, matrix2.weight);
-        for (unsigned int i = 0; i < matrix1.height; i++) {
-            for (unsigned int j = 0; j < matrix2.weight; j++) {
-                for (unsigned int k = 0; k < matrix1.weight; k++) {
-                    new_matrix->matrix[i][j] += matrix1.matrix[i][k] *matrix2.matrix[k][j];
+        Submatrix *new_matrix = new Submatrix(height, submatrix.weight);
+        for (unsigned int i = 0; i < height; i++) {
+            for (unsigned int j = 0; j < submatrix.weight; j++) {
+                for (unsigned int k = 0; k < weight; k++) {
+                    new_matrix->matrix[j+i*weight] += matrix[k+i*weight] *submatrix.matrix[j+k*weight];
                 }
-                cout<<new_matrix->matrix[i][j]<<" ";
             }
-            cout<<endl;
         }
-        new_matrix->det = matrix1.det*matrix2.det;
+        new_matrix->det = det*submatrix.det;
         return *new_matrix;
     }
-    Submatrix addition(const Submatrix& matrix1,const Submatrix& matrix2 ) {
-        if(matrix2.weight != matrix1.weight || matrix1.height!= matrix2.height){
-            return matrix1;
+    Submatrix& operator+ (const Submatrix& matrix2 ) {
+        if(matrix2.weight != weight || height!= matrix2.height){
+            return *this;
         }
         Submatrix* new_matrix = new Submatrix(matrix2.height, matrix2.weight);
         for(unsigned int i=0; i<matrix2.height; i++){
-            for(unsigned int j=0; j<matrix1.weight; j++){
-                new_matrix->matrix[i][j]=matrix1.matrix[i][j]+matrix2.matrix[i][j];
+            for(unsigned int j=0; j<weight; j++){
+                new_matrix->matrix[j+i*weight]=matrix[j+i*weight]+matrix2.matrix[j+i*weight];
             }
         }
         return *new_matrix;
     }
-    Submatrix substraction(const Submatrix& matrix1,const Submatrix& matrix2 ) {
-        if(matrix2.weight != matrix1.weight || matrix1.height!= matrix2.height){
-            return matrix1;
+    Submatrix& operator- (double p ) {
+        if(p==0){
+            return *this;
+        }
+        Submatrix* new_matrix = new Submatrix(height, weight);
+        for(unsigned int i=0; i<height; i++){
+            for(unsigned int j=0; j<weight; j++){
+                new_matrix->matrix[j+i*weight]=matrix[j+i*weight]-p;
+            }
+
+        }
+        return *new_matrix;
+    }
+    Submatrix& operator- (const Submatrix& matrix2 ) {
+        if(matrix2.weight != weight || height!= matrix2.height){
+            return *this;
         }
         Submatrix* new_matrix = new Submatrix(matrix2.height, matrix2.weight);
-        for(unsigned int i=0; i<matrix1.height; i++){
-            for(unsigned int j=0; j<matrix1.weight; j++){
-                new_matrix->matrix[i][j]=matrix1.matrix[i][j]-matrix2.matrix[i][j];
+        for(unsigned int i=0; i<height; i++){
+            for(unsigned int j=0; j<weight; j++){
+                new_matrix->matrix[j+i*weight]=matrix[j+i*weight]-matrix2.matrix[j+i*weight];
             }
 
         }
         return *new_matrix;
     }
-
     void Gauss( Submatrix& submatrix) {
-        double **new_matrix = new double *[submatrix.height];
+        double *new_matrix = new double [submatrix.height* submatrix.weight];
         for (unsigned int i = 0; i < submatrix.height; i++) {
-            new_matrix[i] = new double[submatrix.weight];
             for (unsigned int j = 0; j < submatrix.weight; j++) {
-                new_matrix[i][j] = submatrix.matrix[i][j];
+                new_matrix[j+i*weight] = submatrix.matrix[j+i*weight];
             }
         }
         unsigned int i;//weight
@@ -131,21 +128,21 @@ public:
                 if(i==submatrix.weight-1 && j == submatrix.height - 1){
                     break;
                 }
-                if (new_matrix[j][i] != 0) {
+                if (new_matrix[j*height+i] != 0) {
                     //cout<<j<<" "<<i<<endl;
                     double tmp_rows[submatrix.weight];
                     if(j!=p) {
                         for (unsigned int t = i; t < submatrix.weight; t++) {
-                            tmp_rows[t] = new_matrix[j][t];
-                            new_matrix[j][t] = new_matrix[p][t];
-                            new_matrix[p][t] = tmp_rows[t];
+                            tmp_rows[t] = new_matrix[j*weight+t];
+                            new_matrix[j*submatrix.weight + t] = new_matrix[p*submatrix.weight + t];
+                            new_matrix[p*submatrix.weight + t] = tmp_rows[t];
                         }//переставил строки местами
                         sign++;
                     }
                     for (unsigned int qw = p+1; qw < submatrix.height; qw++) {
-                        double new_p1i = new_matrix[qw][i];
+                        double new_p1i = new_matrix[qw*submatrix.weight + i];
                         for (unsigned int q = i; q < submatrix.weight; q++) {
-                            new_matrix[qw][q] -= new_matrix[p][q] *(new_p1i/new_matrix[p][i]);
+                            new_matrix[qw*submatrix.weight + q] -= new_matrix[p*submatrix.weight + q] *(new_p1i/new_matrix[p*submatrix.weight + i]);
                         }
                     }
                     p++;
@@ -154,7 +151,7 @@ public:
         }
         for(unsigned int i1 =0; i1<submatrix.height; i1++){
             for(unsigned int j1=0; j1<submatrix.weight; j1++){
-                if(new_matrix[i1][j1]!=0){
+                if(new_matrix[i1*submatrix.weight + j1]!=0){
                     submatrix.rank++;
                     break;
                 }
@@ -168,12 +165,98 @@ public:
                 submatrix.det =-1;
             }
             for(unsigned int d=0; d<submatrix.weight; d++){
-                submatrix.det *=new_matrix[d][d];
+                submatrix.det *=new_matrix[d*submatrix.weight + d];
             }
         }
         delete[] new_matrix;
     }
-    Submatrix transponse(Submatrix &submatrix){
+    Submatrix transponse(){
+        if(height ==0 ||weight ==0){
+            return *this;
+        }
+        Submatrix* new_submatrix = new Submatrix(weight, height);
+        if(weight == height){
+            for(unsigned int i=0; i<height; i++){
+                for(unsigned int j=1+i; j<height; j++){
+                    double tmp = matrix[i*height + j];
+                    new_submatrix->matrix[i*height+j] = matrix[j*height+i];
+                    new_submatrix->matrix[j*height+i] = tmp;
+                }
+            }
+            for(unsigned int i=0; i<weight; i++){
+                new_submatrix->matrix[i*weight + i]=matrix[i*weight + i];
+            }
+            return *new_submatrix;
+        }
+        for(unsigned int t=0; t<weight; t++){
+            for(unsigned int q=0;q<height; q++){
+                new_submatrix->matrix[t*height + q] =matrix[q*weight + t];
+            }
+        }
+        return *new_submatrix;
+    }
+    void Gauss() {
+        double *new_matrix = new double [height*weight];
+        for (unsigned int i = 0; i < height; i++) {
+            for (unsigned int j = 0; j < weight; j++) {
+                new_matrix[i*weight + j] = matrix[j+i*weight];
+            }
+        }
+        unsigned int i;//weight
+        unsigned int j;//height
+        unsigned int p = 0;//счетчик куда перемещать строку
+        int sign=0;
+        for (i = 0; i < weight; i++) {
+            if(i==weight-1 && j == height - 1){
+                break;
+            }
+            for (j = p; j < height; j++) {
+                if(i==weight-1 && j == height - 1){
+                    break;
+                }
+                if (new_matrix[j*weight + i] != 0) {
+                    //cout<<j<<" "<<i<<endl;
+                    double tmp_rows[weight];
+                    if(j!=p) {
+                        for (unsigned int t = i; t < weight; t++) {
+                            tmp_rows[t] = new_matrix[j*weight + t];
+                            new_matrix[j*weight + t] = new_matrix[p*weight + t];
+                            new_matrix[p*weight + t] = tmp_rows[t];
+                        }//переставил строки местами
+                        sign++;
+                    }
+                    for (unsigned int qw = p+1; qw < height; qw++) {
+                        double new_p1i = new_matrix[qw*weight + i];
+                        for (unsigned int q = i; q < weight; q++) {
+                            new_matrix[qw*weight + q] -= new_matrix[p*weight + q] *(new_p1i/new_matrix[p*weight + i]);
+                        }
+                    }
+                    p++;
+                }
+            }
+        }
+        for(unsigned int i1 =0; i1<height; i1++){
+            for(unsigned int j1=0; j1<weight; j1++){
+                if(new_matrix[i1*weight + j1]!=0){
+                    rank++;
+                    break;
+                }
+            }
+        }
+        if(weight == height){
+            if(sign%2==0){
+                det =1;
+            }
+            else{
+                det =-1;
+            }
+            for(unsigned int d=0; d<weight; d++){
+                det *=new_matrix[d*weight+ d];
+            }
+        }
+        delete[] new_matrix;
+    }
+    static Submatrix transponse(Submatrix &submatrix){
         if(submatrix.height ==0 ||submatrix.weight ==0){
             return submatrix;
         }
@@ -181,34 +264,34 @@ public:
         if(submatrix.weight == submatrix.height){
             for(unsigned int i=0; i<submatrix.height; i++){
                 for(unsigned int j=1+i; j<submatrix.height; j++){
-                    double tmp = submatrix.matrix[i][j];
-                    new_submatrix->matrix[i][j] = submatrix.matrix[j][i];
-                    new_submatrix->matrix[j][i] = tmp;
+                    double tmp = submatrix.matrix[i*submatrix.height+j];
+                    new_submatrix->matrix[i*submatrix.height+ j] = submatrix.matrix[j*submatrix.height + i];
+                    new_submatrix->matrix[j*submatrix.height + i] = tmp;
                 }
             }
             for(unsigned int i=0; i<submatrix.weight; i++){
-                new_submatrix->matrix[i][i]=submatrix.matrix[i][i];
+                new_submatrix->matrix[i*submatrix.weight + i]=submatrix.matrix[i*submatrix.weight + i];
             }
         return *new_submatrix;
         }
         for(unsigned int t=0; t<submatrix.weight; t++){
             for(unsigned int q=0;q<submatrix.height; q++){
-                new_submatrix->matrix[t][q] = submatrix.matrix[q][t];
+                new_submatrix->matrix[t*submatrix.height + q] = submatrix.matrix[q*submatrix.weight + t];
             }
         }
         return *new_submatrix;
     }
-    Submatrix  inverse(Submatrix &submatrix){
-        if((submatrix.height != submatrix.weight) || submatrix.height ==0){
-            return submatrix;
+    Submatrix  inverse(){
+        if((height != weight) || height ==0){
+            return *this;
         }
-        Gauss(submatrix);
-        if(submatrix.det ==0){
-            return submatrix;
+        Gauss();
+        if(det ==0){
+            return *this;
         }
 
         else{
-            Submatrix* inmatrix =new Submatrix(submatrix.height, submatrix.height);
+            Submatrix* inmatrix =new Submatrix(height, height);
             Submatrix tmp_matrix(inmatrix->height-1, inmatrix->weight-1);
             for(unsigned int i=0; i<inmatrix->height; i++){
                 for(unsigned int j=0; j<inmatrix->weight; j++){
@@ -224,54 +307,50 @@ public:
                                     j_tmp++;
                                 }
                             }
-                            tmp_matrix.matrix[i1][j1] = submatrix.matrix[i_tmp][j_tmp];
+                            tmp_matrix.matrix[i1 * inmatrix->weight-1 + j1] = matrix[i_tmp * inmatrix->weight-1 + j_tmp];
                             j_tmp++;
                         }
                         i_tmp++;
                     }
                     Gauss(tmp_matrix);
                     if((i+j+2)%2==0){
-                        inmatrix->matrix[i][j]=tmp_matrix.det;
-                        inmatrix->matrix[i][j]=inmatrix->matrix[i][j]/submatrix.det;
+                        inmatrix->matrix[i * inmatrix->weight + j]=tmp_matrix.det;
+                        inmatrix->matrix[i * inmatrix->weight + j]=inmatrix->matrix[i * inmatrix->weight + j]/det;
                     }
                     else{
-                        inmatrix->matrix[i][j]=-tmp_matrix.det;
-                        inmatrix->matrix[i][j]=inmatrix->matrix[i][j]/submatrix.det;
+                        inmatrix->matrix[i * inmatrix->weight + j]=-tmp_matrix.det;
+                        inmatrix->matrix[i * inmatrix->weight + j]=inmatrix->matrix[i * inmatrix->weight + j]/det;
                     }
                 }
             }
             *inmatrix =transponse(*inmatrix);
             return *inmatrix;
         }
-        return submatrix;
     }
-    void show_matrix(const Submatrix& submatrix){
+    void show_matrix(){
         cout<<fixed;
         cout.precision(3);
         cout<<" Your matrix : \n";
-        for(unsigned int i=0; i<submatrix.height; i++){
-            for(unsigned int j=0; j<submatrix.weight; j++){
-                cout<<submatrix.matrix[i][j]<<" ";
+        for(unsigned int i=0; i<height; i++){
+            for(unsigned int j=0; j<weight; j++){
+                cout<<matrix[i*weight + j]<<" ";
             }
             cout<<endl;
         }
-        cout<<"Matrix determinant = "<< submatrix.det<<endl;
-        cout<<"Matrix rank = "<< submatrix.rank<<endl;
-        cout<< "Matrix height = "<< submatrix.height<<endl;
-        cout<<"Matrix weight = "<< submatrix.weight<<endl;
+        cout<<"Matrix determinant = "<< det<<endl;
+        cout<<"Matrix rank = "<< rank<<endl;
+        cout<< "Matrix height = "<< height<<endl;
+        cout<<"Matrix weight = "<< weight<<endl;
 
     }
 
 private:
     unsigned int height = 0;
     unsigned int weight = 0;
-    double **matrix= nullptr;
+    double *matrix= nullptr;
     unsigned int rank=0;
     double det=0;
     void cleaner(){
-        for (unsigned int i = 0; i < height; i++) {
-            delete[] matrix[i];
-        }
         delete[] matrix;
         matrix= nullptr;
     }
